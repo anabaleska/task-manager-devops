@@ -42,7 +42,8 @@ const signupUser = asyncHandler(async (req, res) => {
       email: newUser.email,
     });
   } catch (error) {
-    res.status(400);
+    console.log(error);
+    res.status(400).json({ message: error.message });
     throw new Error("Invalid user data");
   }
 });
