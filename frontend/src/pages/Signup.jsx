@@ -11,7 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import OAuth from "../components/OAuth";
 
-const baseURL = import.meta.env.VITE_BACKEND_BASE_URL;
+const baseURL = import.meta.env.VITE_BACKEND_BASE_URL || "http://taskmanager.local/api/v1";
 
 const createUser = async (userData) => {
   const { data } = await axios.post(`${baseURL}/api/v1/user/signup`, userData);

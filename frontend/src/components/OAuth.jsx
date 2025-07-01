@@ -12,11 +12,16 @@ import { toast } from "react-toastify";
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
 const OAuth = ({ title }) => {
-  const auth = getAuth(app);
+  const auth = app ? getAuth(app) : null;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleGoogleClick = async () => {
+    if (!auth) {
+      toast.error("Google login not available at the moment.");
+      return;
+    }
+
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     try {

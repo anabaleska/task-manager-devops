@@ -10,7 +10,7 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 const secret = process.env.COOKIE_SECRET;
-const frontendBaseURL = process.env.FRONTEND_BASE_URL;
+const frontendBaseURL = process.env.FRONTEND_BASE_URL || "http://taskmanager.local";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -19,9 +19,11 @@ app.use(
   cors({
     origin: frontendBaseURL,
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
-
+app.options('*', cors());
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/tasks", taskRoutes);
 
